@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <title>Checkbox LED control </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script>
+
+	function send_index(){
+		if(e.keyCode == 13 && $("#marker").val() != ""){
+			fetch("/")
+			.then(response=> { console.log(response); return response.text()})
+			.then(data=> {
+				console.log(data);
+				let result = document.querySelector("#result");
+				if(data=="ok"){
+					result.innerHTML = "<h1>Forward!</h1>";
+				}else{
+					result.innerHTML = "<h1>error</h1>";
+				}
+			});
+		 }
+	}		
+ 
+	function motor_forward(){
+		fetch("/motor/forward")
+		.then(response=> { console.log(response); return response.text()})
+		.then(data=> {
+			console.log(data);
+			let result = document.querySelector("#result");
+			if(data=="ok"){
+				result.innerHTML = "<h1>Forward!</h1>";
+			}else{
+				result.innerHTML = "<h1>error</h1>";
+			}
+		});
+	 }
+	
+	 function motor_backward(){
+		fetch("/motor/backward")
+		.then(response=> { console.log(response); return response.text()})
+		.then(data=> {
+			console.log(data);
+			let result = document.querySelector("#result");
+			if(data=="ok"){
+				result.innerHTML = "<h1>Backward!</h1>";
+			}else{
+				result.innerHTML = "<h1>error</h1>";
+			}
+		});
+	 };
+
+	 function motor_run(){
+		fetch("/motor/motor_run")
+		.then(response=> { console.log(response); return response.text()})
+		.then(data=> {
+			console.log(data);
+			let result = document.querySelector("#result");
+			if(data=="ok"){
+				result.innerHTML = "<h1>run!</h1>";
+			}else{
+				result.innerHTML = "<h1>error</h1>";
+			}
+		});
+	 };
+	 function motor_stop(){
+		fetch("/motor/motor_stop")
+		.then(response=> { console.log(response); return response.text()})
+		.then(data=> {
+			console.log(data);
+			let result = document.querySelector("#result");
+			if(data=="ok"){
+				result.innerHTML = "<h1>stop!</h1>";
+			}else{
+				result.innerHTML = "<h1>error</h1>";
+			}
+		});
+	 };
+	</script>
+ </head>
+ 
+ <body>
+	<div class="container">
+		<div class="header">
+            <h2>Motor Control</h2>
+        </div>
+        <div class="main">
+			<form action="/" method="POST">
+            	<input name="marker" onkeyup="send_index()" type ="text" placeholder="Marker input">
+				<input type="submit" value="전송">
+			</form>
+            <div>
+                <button onclick="motor_forward()">FORWARD</button>
+            </div>
+            <div>
+                <button onclick="motor_backward()">BACKWARD</button>
+            </div>
+			<div>
+                <button onclick="motor_run()">RUN</button>
+            </div>
+			<div>
+                <button onclick="motor_stop()">STOP</button>
+            </div>
+			<div value="{}"></div>
+        </div>
+		<div id="result"></div>
+	</div>
+ </body>
+ </html>
